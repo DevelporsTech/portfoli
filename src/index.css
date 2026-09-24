@@ -5,6 +5,12 @@
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     color-scheme: dark;
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+  body {
+    overflow-x: hidden;
+    max-width: 100%;
   }
 }
 

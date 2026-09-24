@@ -1,3 +1,7 @@
+import auraPkImg from '../assets/images/project_aurapk_ui_1790181082242.jpg';
+import groceryImg from '../assets/images/project_grocery_ui_1790181095701.jpg';
+import roastRouteImg from '../assets/images/project_roastroute_ui_1790183087663.jpg';
+
 export interface Project {
   id: string;
   name: string;
@@ -137,7 +141,7 @@ export const PORTFOLIO_DATA = {
       description:
         'AuraPK is a modern, responsive e-commerce platform designed to provide customers with a seamless online shopping experience. The website focuses on attractive UI, fast performance, product discovery, user experience, scalability, and conversion optimization.',
       url: 'https://aurapk.vercel.app/',
-      image: '/src/assets/images/project_aurapk_ui_1790181082242.jpg',
+      image: auraPkImg,
       technologies: ['React', 'Tailwind CSS', 'Responsive Design', 'E-commerce UX', 'Vercel'],
       features: [
         'Curated product discovery grid with responsive image rendering',
@@ -154,7 +158,7 @@ export const PORTFOLIO_DATA = {
       description:
         'Master Grocery Shop is a modern e-commerce experience where customers can browse products easily, place orders, and enjoy a seamless shopping experience across devices. The project focuses on convenience, inventory management, and efficient order processing.',
       url: 'https://master-grocery-shop.vercel.app/',
-      image: '/src/assets/images/project_grocery_ui_1790181095701.jpg',
+      image: groceryImg,
       technologies: ['React', 'JavaScript ES6+', 'Tailwind CSS', 'Cart UX', 'Vercel'],
       features: [
         'Category-based navigation for rapid grocery item discovery',
@@ -171,7 +175,7 @@ export const PORTFOLIO_DATA = {
       description:
         'Roast Route is a specialty coffee discovery and ordering web application designed for coffee lovers to explore artisanal roasters, customize brew preferences, and track delivery routes with a sleek, responsive interface.',
       url: 'https://roast-route-mnt638pb0-ahmadbasit.vercel.app/',
-      image: '/src/assets/images/project_roastroute_ui_1790183087663.jpg',
+      image: roastRouteImg,
       technologies: ['React', 'Next.js', 'Tailwind CSS', 'Responsive UI', 'Vercel'],
       features: [
         'Specialty coffee bean catalog with roast profile filtering',

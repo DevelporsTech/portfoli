@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 
 interface LogoHProps {
   className?: string;
@@ -11,6 +11,9 @@ export const LogoH: React.FC<LogoHProps> = ({
   size = 36,
   showText = false,
 }) => {
+  const rawId = useId();
+  const gradId = `hMarkGrad-${rawId.replace(/:/g, '')}`;
+
   return (
     <div className={`inline-flex items-center gap-3 select-none ${className}`}>
       <div
@@ -25,7 +28,7 @@ export const LogoH: React.FC<LogoHProps> = ({
           aria-hidden="true"
         >
           <defs>
-            <linearGradient id="hMarkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#10B981" />
               <stop offset="60%" stopColor="#06B6D4" />
               <stop offset="100%" stopColor="#3B82F6" />
@@ -38,7 +41,7 @@ export const LogoH: React.FC<LogoHProps> = ({
             width="14"
             height="56"
             rx="4"
-            fill="url(#hMarkGrad)"
+            fill={`url(#${gradId})`}
           />
           {/* Middle Crossbar */}
           <rect
@@ -46,7 +49,7 @@ export const LogoH: React.FC<LogoHProps> = ({
             y="43"
             width="20"
             height="14"
-            fill="url(#hMarkGrad)"
+            fill={`url(#${gradId})`}
           />
           {/* Right Vertical Bar */}
           <rect
@@ -55,7 +58,7 @@ export const LogoH: React.FC<LogoHProps> = ({
             width="14"
             height="56"
             rx="4"
-            fill="url(#hMarkGrad)"
+            fill={`url(#${gradId})`}
           />
           {/* Center precision node */}
           <circle cx="50" cy="50" r="3.2" fill="#FFFFFF" />

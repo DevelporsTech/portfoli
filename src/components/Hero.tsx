@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowDown, ArrowUpRight, MapPin } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
+import defaultPortrait from '../assets/images/ameer_hamza.jpg';
 
 export const Hero: React.FC = () => {
+  const [avatarError, setAvatarError] = useState(false);
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -13,77 +16,92 @@ export const Hero: React.FC = () => {
   return (
     <section
       id="home"
-      className="relative min-h-0 md:min-h-[85vh] flex flex-col justify-center pt-24 sm:pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden"
+      className="relative min-h-0 md:min-h-[80vh] flex flex-col justify-center pt-20 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 overflow-hidden"
     >
-      {/* Subtle modern background radial gradient */}
+      {/* Background ambient lighting */}
       <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -z-10"
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] md:w-[600px] h-[300px] sm:h-[500px] md:h-[600px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -z-10"
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-3xl pointer-events-none -z-10"
+        className="absolute bottom-10 right-4 sm:right-10 w-[240px] sm:w-[400px] h-[240px] sm:h-[400px] bg-cyan-500/5 rounded-full blur-3xl pointer-events-none -z-10"
         aria-hidden="true"
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex flex-col items-start space-y-7">
-          {/* Location & Status Line (Clean text, unboxed) */}
-          <div className="flex flex-wrap items-center gap-2 text-xs text-neutral-400">
-            <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
+        <div className="flex flex-col items-start space-y-6 sm:space-y-7">
+          {/* Status & Location badges */}
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-neutral-400">
+            <span className="inline-flex items-center gap-1.5 text-emerald-400 font-medium">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
               <span>Available for opportunities</span>
             </span>
-            <span className="text-neutral-600" aria-hidden="true">·</span>
-            <span className="flex items-center gap-1 text-neutral-300">
-              <MapPin className="w-3.5 h-3.5 text-neutral-400" aria-hidden="true" />
+            <span className="text-neutral-600 hidden sm:inline" aria-hidden="true">·</span>
+            <span className="inline-flex items-center gap-1 text-neutral-300">
+              <MapPin className="w-3.5 h-3.5 text-neutral-400 shrink-0" aria-hidden="true" />
               <span>Based in {PORTFOLIO_DATA.personal.location}</span>
             </span>
           </div>
 
-          {/* Fixed Portrait Image In Front of Name & Title */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8 pt-1 w-full">
-            {/* Fixed Permanent Portrait Image */}
-            <div className="relative shrink-0">
-              <div className="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 rounded-2xl overflow-hidden bg-neutral-900 border-2 border-emerald-500/40 shadow-2xl glow-emerald">
-                <img
-                  src="/ameer-hamza.png"
-                  alt="Ameer Hamza - Junior Web Developer"
-                  className="w-full h-full object-cover object-top"
-                  loading="eager"
-                  referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    // Fallback to jpg copy if png fails
-                    const target = e.currentTarget;
-                    if (!target.src.endsWith('/ameer-hamza.jpg')) {
-                      target.src = '/ameer-hamza.jpg';
-                    }
-                  }}
-                />
-                <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 pointer-events-none" />
-              </div>
+          {/* Profile & Identity Block */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6 md:gap-8 pt-1 w-full">
+            {/* Clean Portrait Container */}
+            <div className="relative shrink-0 flex flex-col items-center sm:items-start">
+              <div className="relative">
+                <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-2xl overflow-hidden bg-neutral-900 border-2 border-emerald-500/40 shadow-xl glow-emerald flex items-center justify-center">
+                  {!avatarError ? (
+                    <img
+                      src={defaultPortrait}
+                      alt="Ameer Hamza - Junior Web Developer"
+                      className="w-full h-full object-cover select-none pointer-events-none"
+                      style={{
+                        objectPosition: 'center',
+                      }}
+                      loading="eager"
+                      decoding="sync"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.src.endsWith('/ameer-hamza.jpg')) {
+                          target.src = '/ameer-hamza.jpg';
+                        } else {
+                          setAvatarError(true);
+                        }
+                      }}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-950 text-emerald-400 font-extrabold text-2xl sm:text-3xl select-none">
+                      AH
+                    </div>
+                  )}
 
-              {/* Active status indicator dot */}
-              <div
-                className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-neutral-950 flex items-center justify-center border-2 border-neutral-900 shadow-md"
-                title="Available for opportunities"
-              >
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 pointer-events-none" />
+                </div>
+
+                {/* Active status indicator dot */}
+                <div
+                  className="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-neutral-950 flex items-center justify-center border-2 border-neutral-900 shadow-md pointer-events-none"
+                  title="Available for opportunities"
+                >
+                  <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                </div>
               </div>
             </div>
 
-            {/* Main Greeting, Name & Title */}
-            <div className="space-y-1.5 min-w-0">
-              <p className="text-base sm:text-lg font-medium text-neutral-400 tracking-tight">
+            {/* Name & Title */}
+            <div className="space-y-1 sm:space-y-1.5 min-w-0 flex-1">
+              <p className="text-sm sm:text-base md:text-lg font-medium text-neutral-400 tracking-tight">
                 Hello, I'm
               </p>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-100 tracking-tight leading-[1.1]">
+
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-neutral-100 tracking-tight leading-[1.15]">
                 Ameer Hamza
               </h1>
+
               <div className="pt-0.5">
-                <span className="text-2xl sm:text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
                   Junior Web Developer
                 </span>
               </div>
@@ -91,16 +109,16 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Short professional introduction */}
-          <p className="text-base sm:text-lg text-neutral-300 leading-relaxed max-w-2xl text-balance">
+          <p className="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed max-w-2xl text-balance">
             {PORTFOLIO_DATA.personal.intro}
           </p>
 
           {/* Hero CTA Buttons */}
-          <div className="pt-2 flex flex-wrap items-center gap-4 w-full sm:w-auto">
+          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
             <button
               type="button"
               onClick={() => scrollTo('projects')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-neutral-950 bg-emerald-400 hover:bg-emerald-300 rounded-xl transition-all duration-200 shadow-md shadow-emerald-500/15 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-neutral-950 bg-emerald-400 hover:bg-emerald-300 rounded-xl transition-all duration-200 shadow-md shadow-emerald-500/15 active:scale-95 cursor-pointer min-h-[44px]"
             >
               <span>View My Work</span>
               <ArrowDown className="w-4 h-4" aria-hidden="true" />
@@ -109,7 +127,7 @@ export const Hero: React.FC = () => {
             <button
               type="button"
               onClick={() => scrollTo('contact')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-neutral-200 hover:text-white bg-neutral-900 hover:bg-neutral-800 border border-neutral-700/80 rounded-xl transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-neutral-200 hover:text-white bg-neutral-900 hover:bg-neutral-800 border border-neutral-700/80 rounded-xl transition-all duration-200 active:scale-95 cursor-pointer min-h-[44px]"
             >
               <span>Get In Touch</span>
               <ArrowUpRight className="w-4 h-4 text-neutral-400" aria-hidden="true" />
