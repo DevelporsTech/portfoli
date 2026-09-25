@@ -62,13 +62,8 @@ export const Hero: React.FC = () => {
                       }}
                       loading="eager"
                       decoding="sync"
-                      onError={(e) => {
-                        const target = e.currentTarget;
-                        if (!target.src.endsWith('/ameer-hamza.jpg')) {
-                          target.src = '/ameer-hamza.jpg';
-                        } else {
-                          setAvatarError(true);
-                        }
+                      onError={() => {
+                        setAvatarError(true);
                       }}
                     />
                   ) : (
