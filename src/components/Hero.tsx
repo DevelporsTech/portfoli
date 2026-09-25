@@ -6,6 +6,14 @@ import defaultPortrait from '../assets/images/ameer_hamza.jpg';
 export const Hero: React.FC = () => {
   const [avatarError, setAvatarError] = useState(false);
 
+  React.useEffect(() => {
+    try {
+      localStorage.removeItem('ameer_portfolio_avatar');
+    } catch {
+      // ignore
+    }
+  }, []);
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -47,40 +55,47 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Profile & Identity Block */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6 md:gap-8 pt-1 w-full">
-            {/* Clean Portrait Container */}
-            <div className="relative shrink-0 flex flex-col items-center sm:items-start">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-7 md:gap-9 pt-1 w-full">
+            {/* Clean Enlaraged Portrait Container */}
+            <div className="relative shrink-0">
               <div className="relative">
-                <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-2xl overflow-hidden bg-neutral-900 border-2 border-emerald-500/40 shadow-xl glow-emerald flex items-center justify-center">
+                <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 aspect-square rounded-3xl overflow-hidden bg-neutral-900 border-2 border-emerald-500/40 shadow-2xl glow-emerald flex items-center justify-center">
                   {!avatarError ? (
                     <img
                       src={defaultPortrait}
                       alt="Ameer Hamza - Junior Web Developer"
-                      className="w-full h-full object-cover select-none pointer-events-none"
+                      width={224}
+                      height={224}
+                      className="w-full h-full object-cover aspect-square select-none pointer-events-none"
                       style={{
                         objectPosition: 'center',
                       }}
                       loading="eager"
                       decoding="sync"
-                      onError={() => {
-                        setAvatarError(true);
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.src.endsWith('/ameer-hamza.jpg')) {
+                          target.src = '/ameer-hamza.jpg';
+                        } else {
+                          setAvatarError(true);
+                        }
                       }}
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-950 text-emerald-400 font-extrabold text-2xl sm:text-3xl select-none">
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-950 text-emerald-400 font-extrabold text-3xl sm:text-4xl select-none">
                       AH
                     </div>
                   )}
 
-                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 pointer-events-none" />
+                  <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10 pointer-events-none" />
                 </div>
 
                 {/* Active status indicator dot */}
                 <div
-                  className="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-neutral-950 flex items-center justify-center border-2 border-neutral-900 shadow-md pointer-events-none"
+                  className="absolute bottom-1 right-1 sm:bottom-1.5 sm:right-1.5 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-neutral-950 flex items-center justify-center border-2 border-neutral-900 shadow-lg pointer-events-none"
                   title="Available for opportunities"
                 >
-                  <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-400 animate-pulse" />
                 </div>
               </div>
             </div>
